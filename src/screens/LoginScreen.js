@@ -5,7 +5,7 @@ import colors from '../styles/colors';
 import Button from '../components/Button';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { ChangeValue } from '../actions/AutenticacaoActions';
+import { ChangeValue, autenticacaoUser } from '../actions/AutenticacaoActions';
 
 import bg from '../image/bg.png';
 
@@ -14,9 +14,9 @@ class LoginScreen extends Component {
   constructor() {
     super();
     this.state = {
-      mensagem: '',
       loading: true,
     }
+
     this.emailRef = this.updateRef.bind(this, 'email');
     this.passwordRef = this.updateRef.bind(this, 'password');
   }
@@ -82,10 +82,12 @@ class LoginScreen extends Component {
   }
 
   onSubmit = () => {
+    const { email, password } = this.props;
+
     let errors = {};
     ['email', 'password']
       .forEach((name) => {
-        let value = this.state[name];
+        let value = this.props[name];
 
         if (!value) {
           errors[name] = 'Não pode ser vazio';
@@ -96,23 +98,25 @@ class LoginScreen extends Component {
         }
       });
 
-    if (Object.keys(errors).length === 0 && errors.constructor === Object) {
-      this.setState({ loading: true });
+    this.props.autenticacaoUser(email, password);
 
-      firebase.auth().signInWithEmailAndPassword(
-        this.props.email,
-        this.state.password
-      ).then(userData => {
-        AsyncStorage.setItem('token', JSON.stringify(userData.user.refreshToken));
-        AsyncStorage.setItem('user_data', JSON.stringify(userData));
-        global.token = userData.user.refreshToken;
-        global.user = userData;
-        this.setState({ loading: false })
-        Actions.core();
-      }).catch(err => {
-        this.setState({ message: err.code, loading: false })
-      })
-    }
+    // if (Object.keys(errors).length === 0 && errors.constructor === Object) {
+    //   this.setState({ loading: true });
+
+    //   firebase.auth().signInWithEmailAndPassword(
+    //     this.props.email,
+    //     this.state.password
+    //   ).then(userData => {
+    //     AsyncStorage.setItem('token', JSON.stringify(userData.user.refreshToken));
+    //     AsyncStorage.setItem('user_data', JSON.stringify(userData));
+    //     global.token = userData.user.refreshToken;
+    //     global.user = userData;
+    //     this.setState({ loading: false })
+    //     Actions.core();
+    //   }).catch(err => {
+    //     this.setState({ message: err.code, loading: false })
+    //   })
+    // }
     this.setState({ errors });
   }
 
@@ -175,7 +179,7 @@ class LoginScreen extends Component {
             loading={this.state.loading}
           />
 
-          <Text style={styles.messageErro}>{this.state.message}</Text>
+          <Text style={styles.messageErro}>{this.props.messageErr}</Text>
 
         </View>
 
@@ -210,7 +214,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 30,
     paddingVertical: 30,
-    // backgroundColor: 'blue'
   },
   forgotPassword: {
     color: colors.white2,
@@ -230,7 +233,8 @@ const mapStateToProps = state => (
   {
     email: state.AutenticacaoReducers.email,
     password: state.AutenticacaoReducers.password,
+    messageErr: state.AutenticacaoReducers.messageErr,
   }
 )
 
-export default connect(mapStateToProps, { ChangeValue })(LoginScreen);
+export default connect(mapStateToProps, { ChangeValue, autenticacaoUser })(LoginScreen);

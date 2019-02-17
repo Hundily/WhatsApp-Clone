@@ -26,8 +26,6 @@ class RegiterUser extends Component {
     //   password: this.props.password
     // }
 
-    // console.log('model', model);
-
     this.props.registerUser(this.props.name, this.props.email, this.props.password);
   }
 

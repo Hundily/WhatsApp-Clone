@@ -1,5 +1,3 @@
-import { Actions } from "react-native-router-flux";
-
 const INITIAL_STATE = {
     name: '',
     email: '',
@@ -9,8 +7,6 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
 
-    console.log('action', action);
-
     if (action.type == 'change_value') {
         return { ...state, [action.state]: action.payload }
     }
@@ -19,15 +15,21 @@ export default (state = INITIAL_STATE, action) => {
         return { ...state, messageErr: action.payload }
     }
 
-    if (Actions.type == 'success_register') {
+    if (action.type == 'success_register') {
         return { ...state, name: '', password: '' }
+    }
+
+    if (action.type == 'authentication_user') {
+        console.log('authentication_user no reducers');
+    }
+
+    if (action.type == 'error_login') {
+        return { ...state, messageErr: action.payload }
     }
 
     // switch (action) {
     //     case action.type == 'change_value':
     //         return { ...state, [action.state]: action.payload }
     // }
-
-    console.log('actions reducers', INITIAL_STATE);
     return state;
 }

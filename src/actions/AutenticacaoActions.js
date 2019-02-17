@@ -26,3 +26,34 @@ export const registerUser = (name, email, password) => {
             })
     }
 }
+
+export const autenticacaoUser = (email, password) => {
+    console.log('autenticacaoUser email', email);
+    console.log('autenticacaoUser password', password);
+
+
+    return dispatch => {
+        firebase.auth().signInWithEmailAndPassword(
+            email,
+            password
+        ).then(res => {
+            console.log('res', res);
+            dispatch({ type: 'authentication_user' });
+            // return {
+            //     type: 'teste_autenticacao_user'
+            // }
+            // AsyncStorage.setItem('token', JSON.stringify(res.user.refreshToken));
+            // AsyncStorage.setItem('user_data', JSON.stringify(res));
+            // global.token = res.user.refreshToken;
+            // global.user = res;
+            // this.setState({ loading: false })
+            // Actions.core();
+        }).catch(err => {
+            console.log('err', err);
+            dispatch({ type: 'error_login', payload: err.message });
+            // this.setState({ message: err.code, loading: false })
+        })
+    }
+
+
+}
