@@ -14,7 +14,7 @@ class LoginScreen extends Component {
   constructor() {
     super();
     this.state = {
-      loading: false,
+      errors: {}
     }
 
     this.emailRef = this.updateRef.bind(this, 'email');
@@ -78,7 +78,6 @@ class LoginScreen extends Component {
   }
 
   onSubmit = () => {
-    this.setState({ loading: true });
     const { email, password } = this.props;
 
     let errors = {};
@@ -93,32 +92,14 @@ class LoginScreen extends Component {
             errors[name] = 'Senha muito curta';
           }
         }
+        this.setState({ errors });
       });
-
     this.props.autenticacaoUser(email, password);
-
-    // if (Object.keys(errors).length === 0 && errors.constructor === Object) {
-    //   this.setState({ loading: true });
-
-    //   firebase.auth().signInWithEmailAndPassword(
-    //     this.props.email,
-    //     this.state.password
-    //   ).then(userData => {
-    //     AsyncStorage.setItem('token', JSON.stringify(userData.user.refreshToken));
-    //     AsyncStorage.setItem('user_data', JSON.stringify(userData));
-    //     global.token = userData.user.refreshToken;
-    //     global.user = userData;
-    //     this.setState({ loading: false })
-    //     Actions.core();
-    //   }).catch(err => {
-    //     this.setState({ message: err.code, loading: false })
-    //   })
-    // }
-    this.setState({ errors, loading: false });
   }
 
   render() {
-    let { errors = {}, loading } = this.state;
+    let { errors = {} } = this.state;
+    // let { loading, email, passowrd } = this.props;
 
     console.log('props', this.props);
 
@@ -173,7 +154,7 @@ class LoginScreen extends Component {
           <Button
             onPress={() => { this.onSubmit() }}
             text={'ACESSAR'}
-            loading={this.state.loading}
+            loading={this.props.loading}
           />
 
           <Text style={styles.messageErro}>{this.props.messageErr}</Text>
@@ -230,6 +211,7 @@ const mapStateToProps = state => (
   {
     email: state.AutenticacaoReducers.email,
     password: state.AutenticacaoReducers.password,
+    loading: state.AutenticacaoReducers.loading,
     messageErr: state.AutenticacaoReducers.messageErr,
   }
 )

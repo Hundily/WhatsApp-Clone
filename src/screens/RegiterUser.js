@@ -20,13 +20,14 @@ class RegiterUser extends Component {
   }
 
   onSubmit = () => {
+    const { name, email, password } = this.props;
     // var model = {
     //   name: this.props.name,
     //   email: this.props.email,
     //   password: this.props.password
     // }
 
-    this.props.registerUser(this.props.name, this.props.email, this.props.password);
+    this.props.registerUser(name, email, password);
   }
 
   render() {
@@ -96,7 +97,7 @@ class RegiterUser extends Component {
             <Button
               onPress={() => { this.onSubmit() }}
               text={'CADASTRAR'}
-              loading={this.state.loading}
+              loading={this.props.loading}
             />
           </View>
         </View>
@@ -166,6 +167,7 @@ const mapStateToProps = state => (
     name: state.AutenticacaoReducers.name,
     email: state.AutenticacaoReducers.email,
     password: state.AutenticacaoReducers.password,
+    loading: state.AutenticacaoReducers.loading,
     messageErr: state.AutenticacaoReducers.messageErr,
   }
 )

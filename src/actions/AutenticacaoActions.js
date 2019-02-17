@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import b64 from 'base-64';
-import { CHANGE_VALUE, ERROR_REGISTER, ERROR_LOGIN, AUTH_USER, SUCCESS_REGISTER } from './types';
+import { CHANGE_VALUE, ERROR_REGISTER, ERROR_LOGIN, AUTH_USER, SUCCESS_REGISTER, LOADING } from './types';
 
 export const ChangeValue = (state, val) => {
     return {
@@ -13,6 +13,8 @@ export const ChangeValue = (state, val) => {
 
 export const registerUser = (name, email, password) => {
     return dispatch => {
+        dispatch({ type: LOADING });
+        
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(res => {
                 let emailB64 = b64.encode(email);
@@ -29,11 +31,10 @@ export const registerUser = (name, email, password) => {
 }
 
 export const autenticacaoUser = (email, password) => {
-    console.log('autenticacaoUser email', email);
-    console.log('autenticacaoUser password', password);
-
 
     return dispatch => {
+        dispatch({ type: LOADING });
+
         firebase.auth().signInWithEmailAndPassword(
             email,
             password
@@ -53,7 +54,6 @@ export const autenticacaoUser = (email, password) => {
         }).catch(err => {
             console.log('err', err);
             dispatch({ type: ERROR_LOGIN, payload: err.message });
-            // this.setState({ message: err.code, loading: false })
         })
     }
 
