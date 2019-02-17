@@ -1,3 +1,5 @@
+import { CHANGE_VALUE, ERROR_REGISTER, ERROR_LOGIN, AUTH_USER, SUCCESS_REGISTER } from '../actions/types';
+
 const INITIAL_STATE = {
     name: '',
     email: '',
@@ -7,29 +9,18 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
 
-    if (action.type == 'change_value') {
-        return { ...state, [action.state]: action.payload }
+    switch (action.type) {
+        case CHANGE_VALUE:
+            return { ...state, [action.state]: action.payload }
+        case ERROR_REGISTER:
+            return { ...state, messageErr: action.payload }
+        case SUCCESS_REGISTER:
+            return { ...state, name: '', password: '' }
+        case AUTH_USER:
+            console.log('authentication_user no reducers');
+        case ERROR_LOGIN:
+            return { ...state, messageErr: action.payload }
+        default:
+            return state;
     }
-
-    if (action.type == 'error_register') {
-        return { ...state, messageErr: action.payload }
-    }
-
-    if (action.type == 'success_register') {
-        return { ...state, name: '', password: '' }
-    }
-
-    if (action.type == 'authentication_user') {
-        console.log('authentication_user no reducers');
-    }
-
-    if (action.type == 'error_login') {
-        return { ...state, messageErr: action.payload }
-    }
-
-    // switch (action) {
-    //     case action.type == 'change_value':
-    //         return { ...state, [action.state]: action.payload }
-    // }
-    return state;
 }

@@ -11,6 +11,7 @@ import ReduxThunk from 'redux-thunk';
 import LoginScreen from "./src/screens/LoginScreen";
 import RegiterUser from "./src/screens/RegiterUser";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
+import CoreScreen from "./src/screens/CoreScreen";
 
 class App extends Component {
 
@@ -35,6 +36,7 @@ class App extends Component {
             <Scene key="login" initial hideNavBar gesturesEnabled={false} component={LoginScreen} />
             <Scene key="register" component={RegiterUser} />
             <Scene key="welcome"  hideNavBar gesturesEnabled={false} component={WelcomeScreen} />
+            <Scene key="core" gesturesEnabled={false} component={CoreScreen} />
           </Stack>
         </Router>
       </Provider>

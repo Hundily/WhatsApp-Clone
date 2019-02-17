@@ -1,10 +1,11 @@
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import b64 from 'base-64';
+import { CHANGE_VALUE, ERROR_REGISTER, ERROR_LOGIN, AUTH_USER, SUCCESS_REGISTER } from './types';
 
 export const ChangeValue = (state, val) => {
     return {
-        type: 'change_value',
+        type: CHANGE_VALUE,
         state: state,
         payload: val,
     }
@@ -18,11 +19,11 @@ export const registerUser = (name, email, password) => {
 
                 firebase.database().ref(`/contatos/${emailB64}`).push({ name })
                     .then(val => {
-                        dispatch({ type: 'success_register' });
+                        dispatch({ type: SUCCESS_REGISTER });
                         Actions.welcome();
                     })
             }).catch(err => {
-                dispatch({ type: 'error_register', payload: err.message });
+                dispatch({ type: ERROR_REGISTER, payload: err.message });
             })
     }
 }
@@ -38,7 +39,8 @@ export const autenticacaoUser = (email, password) => {
             password
         ).then(res => {
             console.log('res', res);
-            dispatch({ type: 'authentication_user' });
+            dispatch({ type: AUTH_USER });
+            Actions.core();
             // return {
             //     type: 'teste_autenticacao_user'
             // }
@@ -50,7 +52,7 @@ export const autenticacaoUser = (email, password) => {
             // Actions.core();
         }).catch(err => {
             console.log('err', err);
-            dispatch({ type: 'error_login', payload: err.message });
+            dispatch({ type: ERROR_LOGIN, payload: err.message });
             // this.setState({ message: err.code, loading: false })
         })
     }

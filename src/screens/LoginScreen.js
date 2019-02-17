@@ -14,15 +14,11 @@ class LoginScreen extends Component {
   constructor() {
     super();
     this.state = {
-      loading: true,
+      loading: false,
     }
 
     this.emailRef = this.updateRef.bind(this, 'email');
     this.passwordRef = this.updateRef.bind(this, 'password');
-  }
-
-  componentWillMount() {
-    this.setState({ loading: false })
   }
 
   redireciona() {
@@ -82,6 +78,7 @@ class LoginScreen extends Component {
   }
 
   onSubmit = () => {
+    this.setState({ loading: true });
     const { email, password } = this.props;
 
     let errors = {};
@@ -117,11 +114,11 @@ class LoginScreen extends Component {
     //     this.setState({ message: err.code, loading: false })
     //   })
     // }
-    this.setState({ errors });
+    this.setState({ errors, loading: false });
   }
 
   render() {
-    let { errors = {} } = this.state;
+    let { errors = {}, loading } = this.state;
 
     console.log('props', this.props);
 
