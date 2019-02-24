@@ -3,11 +3,13 @@ import { StyleSheet, View } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import colors from '../styles/colors';
 import Button from '../components/Button';
+import { connect } from 'react-redux';
+import { ChangeValue, AddContact } from '../actions/AppActions';
 
-export default class AddContactScreen extends Component {
+class AddContactScreen extends Component {
 
   onSubmit = () => {
-
+    this.props.AddContact(this.props.email);
   }
 
   render() {
@@ -25,7 +27,7 @@ export default class AddContactScreen extends Component {
           value={this.props.email}
           // clearTextOnFocus={true}
           onFocus={this.onFocus}
-          onChangeText={this.onChangeText}
+          onChangeText={val => this.props.ChangeValue("email", val)}
           onSubmitEditing={this.onSubmitEmail}
           returnKeyType='next'
         // error={errors.email}
@@ -48,3 +50,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 });
+
+const mapStateToProps = state => (
+  {
+    email: state.AppReducers.email,
+    messageErr: state.AppReducers.messageErr,
+    loading: state.AppReducers.loading,
+  }
+)
+
+export default connect(mapStateToProps, { ChangeValue, AddContact })(AddContactScreen);
