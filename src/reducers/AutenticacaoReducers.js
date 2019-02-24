@@ -2,8 +2,8 @@ import { CHANGE_VALUE, ERROR_REGISTER, ERROR_LOGIN, AUTH_USER, SUCCESS_REGISTER,
 
 const INITIAL_STATE = {
     name: '',
-    email: '',
-    password: '',
+    email: 'hundily@teste.com',
+    password: '123456',
     messageErr: '',
     loading: false
 }

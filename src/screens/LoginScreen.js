@@ -153,6 +153,7 @@ class LoginScreen extends Component {
 
           <Button
             onPress={() => { this.onSubmit() }}
+            textColor={colors.white}
             text={'ACESSAR'}
             loading={this.props.loading}
           />

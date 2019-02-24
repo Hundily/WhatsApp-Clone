@@ -37,7 +37,7 @@ class App extends Component {
             <Scene key="login" initial hideNavBar gesturesEnabled={false} component={LoginScreen} />
             <Scene key="register" component={RegiterUser} />
             <Scene key="welcome"  hideNavBar gesturesEnabled={false} component={WelcomeScreen} />
-            <Scene key="core" initial hideNavBar gesturesEnabled={false} component={CoreScreen} />
+            <Scene key="core" hideNavBar gesturesEnabled={false} component={CoreScreen} />
             <Scene key="add" title={"Adicionar Contato"} component={AddContactScreen} />
           </Stack>
         </Router>

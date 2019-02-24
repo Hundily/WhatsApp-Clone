@@ -1,9 +1,9 @@
-import { CHANGE_VALUE, ERROR_REGISTER, ERROR_LOGIN, AUTH_USER, SUCCESS_REGISTER, LOADING } from '../actions/types';
+import { CHANGE_VALUE, ERROR_ADD_CONTACT, LOADING_ADD_CONTACT } from '../actions/types';
 
 const INITIAL_STATE = {
-    email: '',
-    messageErr: '',
-    loading: false
+    email_contact: '',
+    messageErrAddContact: '',
+    loadingBtnContact: false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -11,6 +11,10 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case CHANGE_VALUE:
             return { ...state, [action.state]: action.payload }
+        case ERROR_ADD_CONTACT:
+            return { ...state, [action.state]: action.payload }
+        case LOADING_ADD_CONTACT:
+            return { ...state, loadingBtnContact: !state.loadingBtnContact }
         default:
             return state;
     }

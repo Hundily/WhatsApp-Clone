@@ -31,7 +31,7 @@ export default class Button extends Component {
                 style={btnStyle.button}
                 disabled={this.props.loading}
             >
-                {this.props.loading && <ActivityIndicator style={btnStyle.buttonText} color={colors.black} animating />}
+                {this.props.loading && <ActivityIndicator style={btnStyle.buttonText} color={colors.white} animating />}
 
                 {!this.props.loading && <Text style={btnStyle.buttonText}>{this.props.text}</Text>}
             </TouchableOpacity>
