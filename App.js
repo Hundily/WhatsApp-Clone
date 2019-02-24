@@ -12,6 +12,7 @@ import LoginScreen from "./src/screens/LoginScreen";
 import RegiterUser from "./src/screens/RegiterUser";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import CoreScreen from "./src/screens/CoreScreen";
+import AddContactScreen from "./src/screens/AddContactScreen";
 
 class App extends Component {
 
@@ -36,7 +37,8 @@ class App extends Component {
             <Scene key="login" initial hideNavBar gesturesEnabled={false} component={LoginScreen} />
             <Scene key="register" component={RegiterUser} />
             <Scene key="welcome"  hideNavBar gesturesEnabled={false} component={WelcomeScreen} />
-            <Scene key="core" initial gesturesEnabled={false} component={CoreScreen} />
+            <Scene key="core" initial hideNavBar gesturesEnabled={false} component={CoreScreen} />
+            <Scene key="add" title={"Adicionar Contato"} component={AddContactScreen} />
           </Stack>
         </Router>
       </Provider>

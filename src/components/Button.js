@@ -15,7 +15,7 @@ export default class Button extends Component {
                 width: '100%',
                 borderRadius: 20,
                 marginVertical: 10,
-                backgroundColor: this.props.bgcolor != null ? this.props.bgcolor : colors.white2
+                backgroundColor: this.props.bgcolor != null ? this.props.bgcolor : colors.whats
             },
             buttonText: {
                 color: this.props.textColor,

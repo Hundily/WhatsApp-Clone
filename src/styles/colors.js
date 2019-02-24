@@ -17,7 +17,8 @@ const colors = {
     black: '#000000',
     line_text: '#455a64',
     dark44: '#2c2c2c',
-    dark31: '#1f1f1f'
+    dark31: '#1f1f1f',
+    whats: '#41685F'
 };
 
 export default colors;
